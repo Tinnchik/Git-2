@@ -1,6 +1,8 @@
+import io
 import sys
 from random import randint
 
+from templateFile import template
 from PyQt6 import uic
 from PyQt6.QtGui import QPainter, QColor, QBrush
 from PyQt6.QtWidgets import QMainWindow, QApplication
@@ -9,7 +11,8 @@ from PyQt6.QtWidgets import QMainWindow, QApplication
 class YellowEllipce(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("UI.ui", self)
+        f = io.StringIO(template)
+        uic.loadUi(f, self)
         self.pushButton.clicked.connect(self.draw)
         self.drawingFlag = False
 
@@ -17,7 +20,7 @@ class YellowEllipce(QMainWindow):
         if self.drawingFlag:
             painter = QPainter(self)
 
-            painter.setBrush(QBrush(QColor(255, 255, 0)))
+            painter.setBrush(QBrush(QColor(randint(0, 255), randint(0, 255), randint(0, 255))))
 
             center_x = self.width() // 2
             center_y = self.height() // 2
